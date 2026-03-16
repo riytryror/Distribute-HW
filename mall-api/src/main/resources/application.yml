@@ -10,16 +10,16 @@ spring:
         user:
           url: jdbc:mysql://localhost:3306/mall_user
           username: root
-          password: gjy88818
+          password: 123456
         product:
           url: jdbc:mysql://localhost:3306/mall_product
           username: root
-          password: gjy88818
+          password: 123456
         stock:
           url: jdbc:mysql://localhost:3306/mall_stock
           username: root
-          password: gjy88818
+          password: 123456
         order:
           url: jdbc:mysql://localhost:3306/mall_order
           username: root
-          password: gjy88818
+          password: 123456
