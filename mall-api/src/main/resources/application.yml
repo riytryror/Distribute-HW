@@ -1,0 +1,25 @@
+spring:
+  threads:
+    virtual:
+      enabled: true # 开启 Java 21 虚拟线程，应对高并发
+
+  datasource:
+    dynamic:
+      primary: user # 默认数据源
+      datasource:
+        user:
+          url: jdbc:mysql://localhost:3306/mall_user
+          username: root
+          password: gjy88818
+        product:
+          url: jdbc:mysql://localhost:3306/mall_product
+          username: root
+          password: gjy88818
+        stock:
+          url: jdbc:mysql://localhost:3306/mall_stock
+          username: root
+          password: gjy88818
+        order:
+          url: jdbc:mysql://localhost:3306/mall_order
+          username: root
+          password: gjy88818
