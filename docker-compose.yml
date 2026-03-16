@@ -1,0 +1,55 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: seckill-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456 
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d
+
+  redis:
+    image: redis:7.0-alpine
+    container_name: seckill-redis
+    ports:
+      - "6379:6379"
+
+  mall-api-1:
+    build:
+      context: ./mall-api
+      dockerfile: Dockerfile
+    container_name: mall-api-8081
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql
+      - redis
+    # 通过命令行参数覆盖内部端口，实现多实例不同端口
+    command: ["java", "-jar", "app.jar", "--server.port=8081"]
+
+  mall-api-2:
+    build:
+      context: ./mall-api
+      dockerfile: Dockerfile
+    container_name: mall-api-8082
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mysql
+      - redis
+    command: ["java", "-jar", "app.jar", "--server.port=8082"]
+
+  nginx:
+    image: nginx:latest
+    container_name: seckill-nginx
+    ports:
+      - "80:80"
+    volumes:
+      # 映射配置文件和静态资源目录，用于负载均衡和动静分离
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/html:/usr/share/nginx/html
+    depends_on:
+      - mall-api-1
+      - mall-api-2
