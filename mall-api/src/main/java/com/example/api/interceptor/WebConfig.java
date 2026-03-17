@@ -1,12 +1,11 @@
-package com.example.api.interceptor;
+package com.example.api.config;
 
+import com.example.api.interceptor.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-
-// 注册拦截器
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
     @Autowired
@@ -16,6 +15,11 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/**") 
-                .excludePathPatterns("/api/v1/users/login", "/api/v1/users/register"); // 放行注册登录
+                // 放行：注册、登录、商品列表、商品详情
+                .excludePathPatterns(
+                    "/api/v1/users/login", 
+                    "/api/v1/users/register",
+                    "/api/v1/products/**" 
+                );
     }
 }
