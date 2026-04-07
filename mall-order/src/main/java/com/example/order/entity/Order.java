@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @TableName("t_order") // 对应 mall_order 库
 public class Order {
-    @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.INPUT)
     private Long id;
     private Long userId;
     private Long productId;
