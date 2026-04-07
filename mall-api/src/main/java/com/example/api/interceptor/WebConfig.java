@@ -1,4 +1,4 @@
-package com.example.api.config;
+package com.example.api.interceptor;
 
 import com.example.api.interceptor.LoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
